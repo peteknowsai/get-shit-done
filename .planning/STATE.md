@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2025-01-19)
 
 ## Current Position
 
-Features: 2 of 3 complete
-Status: 1 feature remaining
+Features: 2 of 4 complete
+Status: 2 features remaining
 Next: Native Question UI
-Last activity: 2026-01-20 - Added Native Question UI feature
+Last activity: 2026-01-20 - Added Agent-Based Execution feature
 
-Progress: [######░░░░] 67%
+Progress: [#####░░░░░] 50%
 
 ## Quick Tasks Completed
 
@@ -30,6 +30,7 @@ Progress: [######░░░░] 67%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- 2026-01-20: Added Agent-Based Execution feature - use sub-agents for research/planning/execution to reduce context rot
 - 2026-01-20: Added Native Question UI feature - use AskUserQuestion throughout GSD commands
 - Quick task directory structure: `.planning/quick/NNN-slug/`
 - Quick task validation: ROADMAP.md only, no feature status check

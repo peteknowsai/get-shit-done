@@ -14,16 +14,17 @@ allowed-tools:
 ---
 
 <objective>
-The main work loop. Select what to build → discuss → research → plan → execute.
+The main work loop. Close out completed work → select what to build → discuss → research → plan → execute.
 
 **Flow:**
-1. Show progress
-2. Present options (individual features or groups)
-3. User selects
-4. Discussion (capture vision)
-5. Research (if needed)
-6. Plan (native plan mode)
-7. Execute (native todos)
+1. Check for in-progress work → offer to close out
+2. Show progress
+3. Present options (individual features or groups)
+4. User selects
+5. Discussion (capture vision)
+6. Research (if needed)
+7. Plan (native plan mode)
+8. Execute (native todos)
 
 **Repeat until project complete.**
 </objective>
@@ -41,7 +42,50 @@ The main work loop. Select what to build → discuss → research → plan → e
 [ -f .planning/ROADMAP.md ] || { echo "No project found. Run /gsd:init first."; exit 1; }
 ```
 
-## 2. Show Progress
+## 2. Check for In-Progress Work
+
+Look for features that may be done but not closed out:
+
+```bash
+# Check for feature directories with work done
+ls .planning/features/*/PLAN.md 2>/dev/null
+# Check STATE.md for "Next:" field indicating current focus
+```
+
+**If in-progress feature found:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GSD ► NEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+You were working on: [Feature Name]
+```
+
+Use AskUserQuestion:
+```
+question: "Close out this feature?"
+options:
+  - "Yes, it's done" — Mark complete and move on
+  - "Not yet" — Continue working on it
+  - "Abandon" — Remove from roadmap
+```
+
+**If "Yes, it's done":**
+1. Update ROADMAP.md — mark feature `[x]`
+2. Update STATE.md — update progress, clear "Next:" focus
+3. Show completion message
+4. Continue to show remaining features
+
+**If "Not yet":**
+Continue to step 3 (Show Progress) — user can keep working or pick something else.
+
+**If "Abandon":**
+1. Update ROADMAP.md — remove or mark as abandoned
+2. Update STATE.md — note the decision
+3. Continue to show remaining features
+
+## 3. Show Progress
 
 Parse ROADMAP.md:
 - Count completed features (marked with `[x]`)
@@ -61,7 +105,7 @@ Progress: [████░░░░░░░░] 3/12 features
 ✓ Dashboard layout
 ```
 
-## 3. Present Options
+## 4. Present Options
 
 Build options from remaining features:
 
@@ -86,14 +130,14 @@ options:
 
 If user wants something not listed, discuss and potentially update roadmap.
 
-## 4. Create Feature Directory
+## 5. Create Feature Directory
 
 ```bash
 FEATURE_SLUG=$(echo "[feature-name]" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 mkdir -p ".planning/features/${FEATURE_SLUG}"
 ```
 
-## 5. Discussion
+## 6. Discussion
 
 Gather the user's vision for this feature.
 
@@ -125,7 +169,7 @@ Save insights to `.planning/features/{slug}/CONTEXT.md`:
 - [Exclusion 1]
 ```
 
-## 6. Research Decision
+## 7. Research Decision
 
 Use AskUserQuestion:
 ```
@@ -150,7 +194,7 @@ Agent writes to `.planning/features/{slug}/RESEARCH.md`
 
 Present key findings before continuing.
 
-## 7. Enter Plan Mode
+## 8. Enter Plan Mode
 
 Use native Claude Code plan mode:
 
@@ -193,7 +237,7 @@ ExitPlanMode()
 
 User approves the plan.
 
-## 8. Execute
+## 9. Execute
 
 After plan approval, execute using native TodoWrite.
 
@@ -218,7 +262,7 @@ TodoWrite([
 5. Mark as completed
 6. Move to next task
 
-## 9. Complete Feature
+## 10. Complete Feature
 
 After all tasks done:
 
@@ -235,7 +279,7 @@ git add .planning/
 git commit -m "docs: complete [feature-name]"
 ```
 
-## 10. Offer Next
+## 11. Offer Next
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -289,6 +333,7 @@ State persists in files:
 </context_management>
 
 <success_criteria>
+- [ ] In-progress work checked (close-out offered if found)
 - [ ] Progress shown
 - [ ] Options presented
 - [ ] Feature selected

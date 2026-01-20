@@ -15,6 +15,9 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 ### UX
 - [ ] **Native Question UI** — Use AskUserQuestion tool throughout all GSD commands
 
+### Architecture
+- [ ] **Agent-Based Execution** — Use sub-agents for research/planning/execution to reduce context rot
+
 ## Feature Details
 
 ### Quick Command
@@ -36,6 +39,17 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 - Provides selectable options in CLI, better UX
 - Users can still type custom responses via "Other" option
 
+### Agent-Based Execution
+**Goal:** Main conversation handles user interaction, sub-agents handle heavy lifting
+**Size:** large
+**Notes:**
+- Main conversation = coordinator (all user touchpoints inline)
+- Research phase → spawn Explore agent, returns findings summary
+- Planning phase → spawn Plan agent, writes plan file, returns "ready"
+- Execution phase → spawn Executor agent, returns commit + summary
+- Reduces context rot by isolating heavy work in sub-agent contexts
+- Refactor /gsd:next and /gsd:quick to use this pattern
+
 ## Progress
 
 | Feature | Status | Completed |
@@ -43,3 +57,4 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 | Quick Command | Complete | 2026-01-19 |
 | Quick Mode Docs | Complete | 2026-01-19 |
 | Native Question UI | Pending | — |
+| Agent-Based Execution | Pending | — |
