@@ -16,10 +16,10 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 - [x] **Native Question UI** — Use AskUserQuestion tool throughout all GSD commands
 
 ### Thread System
-- [ ] **gsd:thread Command** — Create and scope a feature thread
-- [ ] **gsd:run Command** — Execute thread (background-capable)
-- [ ] **gsd:review Command** — Review completed thread
-- [ ] **Deprecate gsd:next** — Remove old monolithic command, thread system replaces it
+- [x] **gsd:thread Command** — Create and scope a feature thread
+- [x] **gsd:run Command** — Execute thread (background-capable)
+- [x] **gsd:review Command** — Review completed thread
+- [x] **Deprecate gsd:next** — Remove old monolithic command, thread system replaces it
 
 ## Feature Details
 
@@ -83,7 +83,7 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 | Quick Command | Complete | 2026-01-19 |
 | Quick Mode Docs | Complete | 2026-01-19 |
 | Native Question UI | Complete | 2026-01-20 |
-| gsd:thread Command | Pending | — |
-| gsd:run Command | Pending | — |
-| gsd:review Command | Pending | — |
-| Deprecate gsd:next | Pending | — |
+| gsd:thread Command | Complete | 2026-01-20 |
+| gsd:run Command | Complete | 2026-01-20 |
+| gsd:review Command | Complete | 2026-01-20 |
+| Deprecate gsd:next | Complete | 2026-01-20 |
