@@ -179,15 +179,36 @@ Create `.planning/config.json`:
 }
 ```
 
-## 8. Commit
+## 8. Update CLAUDE.md
+
+Add GSD reference to project's CLAUDE.md so any Claude session knows GSD is available:
+
+```markdown
+## GSD (Get Shit Done)
+
+This project uses GSD for structured development.
+
+**Commands:**
+- `/gsd:next` — Pick next feature, plan, execute
+- `/gsd:roadmap` — Review/update roadmap
+- `/gsd:quick` — Fast tasks outside the roadmap
+- `/gsd:debug` — Systematic debugging
+
+**State:** `.planning/` (gitignored)
+```
+
+**If CLAUDE.md exists:** Append the GSD section at the end.
+**If no CLAUDE.md:** Create it with just the GSD section.
+
+## 9. Commit
 
 ```bash
 mkdir -p .planning/features
-git add .planning/
+git add .planning/ CLAUDE.md
 git commit -m "docs: initialize GSD project"
 ```
 
-## 9. Done
+## 10. Done
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -208,5 +229,6 @@ Run /gsd:next to start building
 - [ ] Research completed (if selected)
 - [ ] ROADMAP.md created with features
 - [ ] STATE.md initialized
+- [ ] CLAUDE.md updated with GSD section
 - [ ] Committed to git
 </success_criteria>
