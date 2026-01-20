@@ -23,6 +23,14 @@ Progress: [####░░░░░░] 43%
 | 001 | commands-html-page | a1454db | 2026-01-19 |
 | 002 | 90s-html-command-reference | fc3287c | 2026-01-19 |
 
+## Active Threads
+
+| Thread | Status | Features | Started | Completed |
+|--------|--------|----------|---------|-----------|
+| thread-system | scoped | 4 | 2026-01-20 | — |
+
+**Status values:** scoped, running, blocked, complete, approved
+
 ## Accumulated Context
 
 ### Decisions
