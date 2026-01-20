@@ -130,7 +130,7 @@ Template for `.planning/codebase/CONCERNS.md` - captures known issues and areas 
 **Database queries in React components:**
 - Issue: Direct Supabase queries in 15+ page components instead of server actions
 - Files: `app/dashboard/page.tsx`, `app/profile/page.tsx`, `app/courses/[id]/page.tsx`, `app/settings/page.tsx` (and 11 more in `app/`)
-- Why: Rapid prototyping during MVP phase
+- Why: Rapid prototyping during MVP development
 - Impact: Can't implement RLS properly, exposes DB structure to client
 - Fix approach: Move all queries to server actions in `app/actions/`, add proper RLS policies
 
@@ -297,7 +297,7 @@ Template for `.planning/codebase/CONCERNS.md` - captures known issues and areas 
 - Risk-focused ("Could expose user data" not "security is bad")
 - Factual ("3.5s load time" not "really slow")
 
-**Useful for phase planning when:**
+**Useful for feature planning when:**
 - Deciding what to work on next
 - Estimating risk of changes
 - Understanding where to be careful

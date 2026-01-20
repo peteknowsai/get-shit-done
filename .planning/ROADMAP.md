@@ -2,48 +2,88 @@
 
 ## Overview
 
-Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks with full GSD guarantees (atomic commits, STATE.md tracking) but skips optional verification agents. Quick tasks live in `.planning/quick/` separate from planned phases.
+Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks with full GSD guarantees (atomic commits, STATE.md tracking) but skips optional verification agents. Quick tasks live in `.planning/quick/` separate from planned features.
 
-## Phases
+## Features
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+### Core
+- [x] **Quick Command** — Complete `/gsd:quick` command end-to-end
 
-- [x] **Phase 1: Core Command** - Complete `/gsd:quick` command end-to-end
-- [x] **Phase 2: Documentation** - Update help.md, README.md, and GSD-STYLE.md
+### Documentation
+- [x] **Quick Mode Docs** — Update help.md, README.md, and GSD-STYLE.md
 
-## Phase Details
+### UX
+- [x] **Native Question UI** — Use AskUserQuestion tool throughout all GSD commands
 
-### Phase 1: Core Command
-**Goal**: User can run `/gsd:quick` (with interactive prompt) and have it execute with full state tracking
-**Depends on**: Nothing (first phase)
-**Requirements**: CMD-01, CMD-02, CMD-03, CMD-04, EXEC-01, EXEC-02, EXEC-03, EXEC-04, STATE-01, STATE-02
-**Plans:** 2 plans
+### Thread System
+- [x] **gsd:thread Command** — Create and scope a feature thread
+- [x] **gsd:run Command** — Execute thread (background-capable)
+- [x] **gsd:review Command** — Review completed thread
+- [x] **Deprecate gsd:next** — Remove old monolithic command, thread system replaces it
 
-Plans:
-- [x] 01-01-PLAN.md — Quick command file with pre-flight validation and directory setup
-- [x] 01-02-PLAN.md — Quick orchestration (planner spawn, executor spawn, state update)
+## Feature Details
 
-### Phase 2: Documentation
-**Goal**: Quick mode is documented in all relevant locations
-**Depends on**: Phase 1
-**Requirements**: DOCS-01, DOCS-02, DOCS-03
-**Success Criteria** (what must be TRUE):
-  1. help.md lists `/gsd:quick` with usage and description
-  2. README.md includes quick mode section explaining when to use it
-  3. GSD-STYLE.md documents quick mode patterns
-**Plans:** 1 plan
+### Quick Command
+**Goal:** User can run `/gsd:quick` (with interactive prompt) and have it execute with full state tracking
+**Size:** medium
+**Notes:** Command file with pre-flight validation, directory setup, orchestration (planner spawn, executor spawn, state update)
 
-Plans:
-- [x] 02-01-PLAN.md — Document /gsd:quick in help.md, README.md, and GSD-STYLE.md
+### Quick Mode Docs
+**Goal:** Quick mode is documented in all relevant locations
+**Size:** small
+**Notes:** help.md lists command, README.md explains when to use it, GSD-STYLE.md documents patterns
+
+### Native Question UI
+**Goal:** All GSD commands use Claude Code's native AskUserQuestion tool instead of text prompts
+**Size:** medium
+**Notes:**
+- Replace freeform "What's on your mind?" with structured options where applicable
+- Update /gsd:init, /gsd:next, /gsd:roadmap, /gsd:quick, /gsd:debug
+- Provides selectable options in CLI, better UX
+- Users can still type custom responses via "Other" option
+
+### gsd:thread Command
+**Goal:** Create a thread that groups one or more roadmap features
+**Size:** medium
+**Notes:**
+- `gsd:thread` shows pending features, user picks which to include
+- `gsd:thread [name]` creates named thread, then pick features
+- Thread = grouping of related features to build together
+- Interactive clarification of scope, requirements, decisions
+- Outputs `.planning/threads/{slug}/scope.md` covering all selected features
+- All questions resolved before handoff to run phase
+- Completing thread marks included features as done in ROADMAP.md
+
+### gsd:run Command
+**Goal:** Execute a thread with background-capable agents
+**Size:** large
+**Notes:**
+- Reads scope.md from thread directory (may include multiple features)
+- Spawns background agent for heavy lifting (P-thread pattern)
+- Research codebase → write plan.md → execute → commit
+- User can run `gsd:thread` to scope another thread while this runs
+- Writes summary.md when complete
+- Uses Task tool with `run_in_background: true`
+- Enables parallel threads (Boris Cherny's 5+ agents pattern)
+
+### gsd:review Command
+**Goal:** Review a completed thread with interactive walkthrough
+**Size:** medium
+**Notes:**
+- `gsd:review` reviews last completed thread
+- `gsd:review [name]` reviews specific thread
+- Steps through changed files one by one
+- Explains what changed and why
+- Collects feedback: approve, request changes, or iterate
 
 ## Progress
 
-**Execution Order:**
-Phases execute in numeric order: 1 -> 2
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Core Command | 2/2 | Complete | 2026-01-19 |
-| 2. Documentation | 1/1 | Complete | 2026-01-19 |
+| Feature | Status | Completed |
+|---------|--------|-----------|
+| Quick Command | Complete | 2026-01-19 |
+| Quick Mode Docs | Complete | 2026-01-19 |
+| Native Question UI | Complete | 2026-01-20 |
+| gsd:thread Command | Complete | 2026-01-20 |
+| gsd:run Command | Complete | 2026-01-20 |
+| gsd:review Command | Complete | 2026-01-20 |
+| Deprecate gsd:next | Complete | 2026-01-20 |

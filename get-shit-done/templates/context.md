@@ -1,29 +1,25 @@
-# Phase Context Template
+# Feature Context Template
 
-Template for `.planning/phases/XX-name/{phase}-CONTEXT.md` - captures implementation decisions for a phase.
+Template for `.planning/features/{slug}/CONTEXT.md` - captures implementation decisions for a feature.
 
-**Purpose:** Document decisions that downstream agents need. Researcher uses this to know WHAT to investigate. Planner uses this to know WHAT choices are locked vs flexible.
+**Purpose:** Document decisions from the discussion step of `/gsd:next`. This ensures the user's vision is captured before planning and execution.
 
-**Key principle:** Categories are NOT predefined. They emerge from what was actually discussed for THIS phase. A CLI phase has CLI-relevant sections, a UI phase has UI-relevant sections.
-
-**Downstream consumers:**
-- `gsd-phase-researcher` — Reads decisions to focus research (e.g., "card layout" → research card component patterns)
-- `gsd-planner` — Reads decisions to create specific tasks (e.g., "infinite scroll" → task includes virtualization)
+**Key principle:** Categories are NOT predefined. They emerge from what was actually discussed for THIS feature. A CLI feature has CLI-relevant sections, a UI feature has UI-relevant sections.
 
 ---
 
 ## File Template
 
 ```markdown
-# Phase [X]: [Name] - Context
+# [Feature Name] — Context
 
 **Gathered:** [date]
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Feature Boundary
 
-[Clear statement of what this phase delivers — the scope anchor. This comes from ROADMAP.md and is fixed. Discussion clarifies implementation within this boundary.]
+[Clear statement of what this feature delivers — the scope anchor. This comes from ROADMAP.md and is fixed. Discussion clarifies implementation within this boundary.]
 
 </domain>
 
@@ -57,15 +53,15 @@ Template for `.planning/phases/XX-name/{phase}-CONTEXT.md` - captures implementa
 <deferred>
 ## Deferred Ideas
 
-[Ideas that came up during discussion but belong in other phases. Captured here so they're not lost, but explicitly out of scope for this phase.]
+[Ideas that came up during discussion but belong in other features. Captured here so they're not lost, but explicitly out of scope for this feature.]
 
-[If none: "None — discussion stayed within phase scope"]
+[If none: "None — discussion stayed within feature scope"]
 
 </deferred>
 
 ---
 
-*Phase: XX-name*
+*Feature: {slug}*
 *Context gathered: [date]*
 ```
 
@@ -74,15 +70,15 @@ Template for `.planning/phases/XX-name/{phase}-CONTEXT.md` - captures implementa
 **Example 1: Visual feature (Post Feed)**
 
 ```markdown
-# Phase 3: Post Feed - Context
+# Post Feed — Context
 
 **Gathered:** 2025-01-20
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Feature Boundary
 
-Display posts from followed users in a scrollable feed. Users can view posts and see engagement counts. Creating posts and interactions are separate phases.
+Display posts from followed users in a scrollable feed. Users can view posts and see engagement counts. Creating posts and interactions are separate features.
 
 </domain>
 
@@ -121,29 +117,29 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 <deferred>
 ## Deferred Ideas
 
-- Commenting on posts — Phase 5
+- Commenting on posts — separate feature
 - Bookmarking posts — add to backlog
 
 </deferred>
 
 ---
 
-*Phase: 03-post-feed*
+*Feature: post-feed*
 *Context gathered: 2025-01-20*
 ```
 
 **Example 2: CLI tool (Database backup)**
 
 ```markdown
-# Phase 2: Backup Command - Context
+# Backup Command — Context
 
 **Gathered:** 2025-01-20
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Feature Boundary
 
-CLI command to backup database to local file or S3. Supports full and incremental backups. Restore command is a separate phase.
+CLI command to backup database to local file or S3. Supports full and incremental backups. Restore command is a separate feature.
 
 </domain>
 
@@ -183,29 +179,29 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 <deferred>
 ## Deferred Ideas
 
-- Scheduled backups — separate phase
+- Scheduled backups — separate feature
 - Backup rotation/retention — add to backlog
 
 </deferred>
 
 ---
 
-*Phase: 02-backup-command*
+*Feature: backup-command*
 *Context gathered: 2025-01-20*
 ```
 
 **Example 3: Organization task (Photo library)**
 
 ```markdown
-# Phase 1: Photo Organization - Context
+# Photo Organization — Context
 
 **Gathered:** 2025-01-20
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Feature Boundary
 
-Organize existing photo library into structured folders. Handle duplicates and apply consistent naming. Tagging and search are separate phases.
+Organize existing photo library into structured folders. Handle duplicates and apply consistent naming. Tagging and search are separate features.
 
 </domain>
 
@@ -245,23 +241,23 @@ Organize existing photo library into structured folders. Handle duplicates and a
 <deferred>
 ## Deferred Ideas
 
-- Face detection grouping — future phase
+- Face detection grouping — future feature
 - Cloud sync — out of scope for now
 
 </deferred>
 
 ---
 
-*Phase: 01-photo-organization*
+*Feature: photo-organization*
 *Context gathered: 2025-01-20*
 ```
 
 </good_examples>
 
 <guidelines>
-**This template captures DECISIONS for downstream agents.**
+**This template captures DECISIONS from the discussion step.**
 
-The output should answer: "What does the researcher need to investigate? What choices are locked for the planner?"
+The output should answer: "What does the researcher need to investigate? What choices are locked for planning?"
 
 **Good content (concrete decisions):**
 - "Card-based layout, not timeline"
@@ -284,8 +280,8 @@ The output should answer: "What does the researcher need to investigate? What ch
 - **Deferred** — Ideas captured but explicitly out of scope. Prevents scope creep while preserving good ideas.
 
 **After creation:**
-- File lives in phase directory: `.planning/phases/XX-name/{phase}-CONTEXT.md`
-- `gsd-phase-researcher` uses decisions to focus investigation
-- `gsd-planner` uses decisions + research to create executable tasks
-- Downstream agents should NOT need to ask the user again about captured decisions
+- File lives in feature directory: `.planning/features/{slug}/CONTEXT.md`
+- Used by gsd-researcher to focus investigation
+- Used during planning to create executable tasks
+- Downstream steps should NOT need to ask the user again about captured decisions
 </guidelines>
