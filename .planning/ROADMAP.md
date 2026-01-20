@@ -42,24 +42,25 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 - Users can still type custom responses via "Other" option
 
 ### gsd:thread Command
-**Goal:** Create and scope a feature thread with clear requirements
+**Goal:** Create a thread that groups one or more roadmap features
 **Size:** medium
 **Notes:**
-- `gsd:thread` with no args picks next feature from roadmap
-- `gsd:thread [name]` creates/discusses specific thread
+- `gsd:thread` shows pending features, user picks which to include
+- `gsd:thread [name]` creates named thread, then pick features
+- Thread = grouping of related features to build together
 - Interactive clarification of scope, requirements, decisions
-- Outputs `.planning/threads/{slug}/scope.md`
+- Outputs `.planning/threads/{slug}/scope.md` covering all selected features
 - All questions resolved before handoff to run phase
-- Thread = unit of work (scope → run → review)
+- Completing thread marks included features as done in ROADMAP.md
 
 ### gsd:run Command
 **Goal:** Execute a thread with background-capable agents
 **Size:** large
 **Notes:**
-- Reads scope.md from thread directory
+- Reads scope.md from thread directory (may include multiple features)
 - Spawns background agent for heavy lifting (P-thread pattern)
 - Research codebase → write plan.md → execute → commit
-- User can run `gsd:thread` on another feature while this runs
+- User can run `gsd:thread` to scope another thread while this runs
 - Writes summary.md when complete
 - Uses Task tool with `run_in_background: true`
 - Enables parallel threads (Boris Cherny's 5+ agents pattern)
