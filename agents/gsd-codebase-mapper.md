@@ -1,7 +1,7 @@
 ---
 name: gsd-codebase-mapper
 model: opus
-description: Explores codebase and writes structured analysis documents. Spawned by map-codebase with a focus area (tech, arch, quality, concerns). Writes documents directly to reduce orchestrator context load.
+description: Explores codebase and writes structured analysis documents. Spawned by /gsd:init with a focus area (tech, arch, quality, concerns). Writes documents directly to reduce context load.
 tools: Read, Bash, Grep, Glob, Write
 color: cyan
 ---
@@ -153,7 +153,7 @@ Format:
 - `.planning/codebase/{DOC1}.md` ({N} lines)
 - `.planning/codebase/{DOC2}.md` ({N} lines)
 
-Ready for orchestrator summary.
+Ready.
 ```
 </step>
 
@@ -708,7 +708,7 @@ Ready for orchestrator summary.
 
 <critical_rules>
 
-**WRITE DOCUMENTS DIRECTLY.** Do not return findings to orchestrator. The whole point is reducing context transfer.
+**WRITE DOCUMENTS DIRECTLY.** Do not return findings to the caller. The whole point is reducing context transfer.
 
 **ALWAYS INCLUDE FILE PATHS.** Every finding needs a file path in backticks. No exceptions.
 
@@ -718,7 +718,7 @@ Ready for orchestrator summary.
 
 **RETURN ONLY CONFIRMATION.** Your response should be ~10 lines max. Just confirm what was written.
 
-**DO NOT COMMIT.** The orchestrator handles git operations.
+**DO NOT COMMIT.** The caller handles git operations.
 
 </critical_rules>
 

@@ -139,7 +139,7 @@ Write to `.planning/features/[slug]/RESEARCH.md`:
 
 <execution>
 
-1. **Receive research request** from orchestrator
+1. **Receive research request** from caller
 2. **Identify what to investigate** based on context
 3. **Use tools** — Context7 first, then WebSearch/WebFetch
 4. **Synthesize findings** — Be prescriptive, not exploratory

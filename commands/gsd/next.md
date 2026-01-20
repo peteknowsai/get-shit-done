@@ -11,7 +11,6 @@ allowed-tools:
   - Task
   - AskUserQuestion
   - TodoWrite
-  - EnterPlanMode
 ---
 
 <objective>

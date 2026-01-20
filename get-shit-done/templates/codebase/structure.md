@@ -124,13 +124,13 @@ Template for `.planning/codebase/STRUCTURE.md` - captures physical file organiza
 
 ```
 get-shit-done/
+├── agents/             # GSD agent definitions
 ├── bin/                # Executable entry points
 ├── commands/           # Slash command definitions
 │   └── gsd/           # GSD-specific commands
 ├── get-shit-done/     # Skill resources
-│   ├── references/    # Principle documents
-│   ├── templates/     # File templates
-│   └── workflows/     # Multi-step procedures
+│   └── templates/     # File templates
+│       └── codebase/  # Codebase analysis templates
 ├── src/               # Source code (if applicable)
 ├── tests/             # Test files
 ├── package.json       # Project manifest
@@ -148,25 +148,19 @@ get-shit-done/
 **commands/gsd/**
 - Purpose: Slash command definitions for Claude Code
 - Contains: *.md files (one per command)
-- Key files: new-project.md, plan-phase.md, execute-plan.md
+- Key files: init.md, next.md, debug.md, roadmap.md, help.md
 - Subdirectories: None (flat structure)
-
-**get-shit-done/references/**
-- Purpose: Core philosophy and guidance documents
-- Contains: principles.md, questioning.md, plan-format.md
-- Key files: principles.md - system philosophy
-- Subdirectories: None
 
 **get-shit-done/templates/**
 - Purpose: Document templates for .planning/ files
 - Contains: Template definitions with frontmatter
-- Key files: project.md, roadmap.md, plan.md, summary.md
-- Subdirectories: codebase/ (new - for stack/architecture/structure templates)
+- Key files: project.md, roadmap.md, context.md, config.json
+- Subdirectories: codebase/ (stack, architecture, structure templates)
 
-**get-shit-done/workflows/**
-- Purpose: Reusable multi-step procedures
-- Contains: Workflow definitions called by commands
-- Key files: execute-plan.md, research-phase.md
+**agents/**
+- Purpose: GSD agent definitions
+- Contains: Agent prompt files for specialized tasks
+- Key files: gsd-codebase-mapper.md, gsd-debugger.md, gsd-researcher.md
 - Subdirectories: None
 
 ## Key File Locations
@@ -277,7 +271,7 @@ root/
 └── file.ts        # Purpose
 ```
 
-**Useful for phase planning when:**
+**Useful for feature planning when:**
 - Adding new features (where should files go?)
 - Understanding project organization
 - Finding where specific logic lives
