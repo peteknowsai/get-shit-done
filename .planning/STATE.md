@@ -27,7 +27,7 @@ Progress: [####░░░░░░] 43%
 
 | Thread | Status | Features | Started | Completed |
 |--------|--------|----------|---------|-----------|
-| thread-system | scoped | 4 | 2026-01-20 | — |
+| thread-system | running | 4 | 2026-01-20 | — |
 
 **Status values:** scoped, running, blocked, complete, approved
 

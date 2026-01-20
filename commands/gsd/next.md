@@ -13,6 +13,24 @@ allowed-tools:
   - TodoWrite
 ---
 
+<deprecated>
+**This command is deprecated.** Use the thread system instead:
+
+```
+/gsd:thread    ← Scope features (replaces feature selection)
+/gsd:run       ← Execute thread (replaces plan + execute)
+/gsd:review    ← Review completed work (replaces close-out)
+```
+
+The thread system supports:
+- **Multi-feature threads** — Group related features together
+- **Background execution** — Work on other things while threads run
+- **Parallel threads** — Run multiple threads simultaneously
+- **Interactive review** — Walk through changes before approval
+
+This command still works but will be removed in a future version.
+</deprecated>
+
 <objective>
 The main work loop. Close out completed work → select what to build → discuss → research → plan → execute.
 

@@ -17,7 +17,9 @@ Output ONLY the reference content. No project analysis, no status, no suggestion
 | Command | Purpose |
 |---------|---------|
 | `/gsd:init` | Initialize a new project |
-| `/gsd:next` | Select feature → plan → build |
+| `/gsd:thread` | Scope a feature thread |
+| `/gsd:run` | Execute thread (background-capable) |
+| `/gsd:review` | Review completed thread |
 | `/gsd:roadmap` | Review and realign roadmap |
 | `/gsd:quick` | Ad-hoc tasks outside roadmap |
 | `/gsd:debug` | Systematic debugging |
@@ -28,13 +30,15 @@ Output ONLY the reference content. No project analysis, no status, no suggestion
 ```
 /gsd:init           ← once, at start
 
-/gsd:next           ← main loop
-/gsd:next           ← repeat until done
-/gsd:next
+/gsd:thread         ← scope features to build
+/gsd:run            ← execute (can run in background)
+/gsd:review         ← approve completed work
+
+/gsd:thread         ← scope next thread
+/gsd:run --bg       ← run in background, continue working
+/gsd:thread         ← scope another thread (parallel!)
 
 /gsd:roadmap        ← when you need to rethink priorities
-
-/gsd:next           ← back to building
 ```
 
 ## Files
@@ -45,11 +49,11 @@ Output ONLY the reference content. No project analysis, no status, no suggestion
 ├── STATE.md            ← project memory
 ├── config.json         ← settings
 ├── research/           ← project research
-├── features/           ← per-feature context, research, plans
-│   └── {feature}/
-│       ├── CONTEXT.md
-│       ├── RESEARCH.md
-│       └── PLAN.md
+├── threads/            ← thread workspaces
+│   └── {thread}/
+│       ├── scope.md    ← from /gsd:thread
+│       ├── plan.md     ← from executor
+│       └── summary.md  ← completion summary
 ├── quick/              ← quick tasks
 └── debug/              ← debug sessions
 ```
@@ -63,7 +67,15 @@ Output ONLY the reference content. No project analysis, no status, no suggestion
 
 **Building features:**
 ```
-/gsd:next
+/gsd:thread                  # scope features
+/gsd:run                     # execute
+/gsd:review                  # approve
+```
+
+**Parallel execution:**
+```
+/gsd:run --background        # run in background
+/gsd:thread                  # scope another while it runs
 ```
 
 **Quick fixes:**
