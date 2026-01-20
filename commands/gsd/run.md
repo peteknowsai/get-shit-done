@@ -26,6 +26,12 @@ Execute a scoped thread by spawning the gsd-thread-executor agent.
 **Supports:** Background execution for parallel threads.
 </objective>
 
+<critical>
+**MANDATORY: Use AskUserQuestion tool for ALL user interactions.**
+
+Do NOT have freeform conversation. Every question = AskUserQuestion tool call.
+</critical>
+
 <context>
 @.planning/STATE.md
 </context>

@@ -27,6 +27,12 @@ Interactive review of a completed thread's changes.
 **Goal:** User understands and approves the work, then merges.
 </objective>
 
+<critical>
+**MANDATORY: Use AskUserQuestion tool for ALL user interactions.**
+
+Do NOT have freeform conversation. Every question = AskUserQuestion tool call.
+</critical>
+
 <context>
 @.planning/STATE.md
 @.planning/ROADMAP.md

@@ -18,13 +18,29 @@ Create a thread that groups one or more roadmap features for execution.
 1. Parse ROADMAP.md for pending features
 2. Present feature picker (multi-select with AskUserQuestion)
 3. Name the thread
-4. Discuss scope for selected features
+4. Scope each feature (structured questions)
 5. Create thread directory and scope.md
 6. Update STATE.md
 7. Commit and show next steps
 
 **Output:** `.planning/threads/{slug}/scope.md`
 </objective>
+
+<critical>
+**MANDATORY: Use AskUserQuestion tool for ALL user interactions.**
+
+Do NOT:
+- Ask freeform questions and wait for text responses
+- Have back-and-forth conversation
+- Say "How do you imagine..." and wait
+
+DO:
+- Call the AskUserQuestion tool with structured options
+- User can always select "Other" for custom input
+- Keep moving forward with tool calls
+
+Every question = AskUserQuestion tool call. No exceptions.
+</critical>
 
 <context>
 @.planning/ROADMAP.md
@@ -168,33 +184,36 @@ THREAD_DIR=".planning/threads/${SLUG}"
 mkdir -p "$THREAD_DIR"
 ```
 
-## 7. Scope Discussion
+## 7. Scope Each Feature
 
-For each selected feature, discuss scope:
+For each selected feature, use AskUserQuestion to gather scope.
+
+**For each feature, ask about approach:**
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► THREAD: {name}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Let's scope each feature in this thread.
+question: "How should {feature} work?"
+header: "{feature}"
+multiSelect: false
+options:
+  - label: "{inferred approach 1}"
+    description: "Based on codebase patterns"
+  - label: "{inferred approach 2}"
+    description: "Alternative approach"
+  - label: "Already done"
+    description: "Skip — this is complete"
+  - label: "Skip for now"
+    description: "Remove from this thread"
 ```
 
-**For each feature:**
+**Infer options from:**
+- ROADMAP.md feature details
+- Existing codebase patterns
+- Common implementation approaches
 
-Ask freeform: **"How do you imagine {feature} working?"**
+**If user selects "Other":** They provide custom scope text.
 
-Follow threads:
-- What's the core behavior?
-- Any specific UI/UX preferences?
-- Edge cases?
-- What does "done" look like?
+**After all features scoped:**
 
-Capture key points for scope.md.
-
-**After all features discussed:**
-
-Use AskUserQuestion:
 ```
 question: "Ready to create this thread?"
 header: "Confirm"
@@ -202,11 +221,11 @@ multiSelect: false
 options:
   - label: "Create thread"
     description: "Save scope and continue"
-  - label: "Discuss more"
-    description: "Continue refining scope"
+  - label: "Adjust scope"
+    description: "Change a feature's scope"
 ```
 
-If "Discuss more" → continue freeform discussion.
+If "Adjust scope" → ask which feature to adjust, then re-ask that feature's scope question.
 
 ## 8. Write scope.md
 
