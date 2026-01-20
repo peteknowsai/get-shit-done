@@ -9,11 +9,12 @@ See: .planning/PROJECT.md (updated 2025-01-19)
 
 ## Current Position
 
-Features: 2 of 2 complete
-Status: All features complete
-Last activity: 2026-01-19 - Completed Quick Mode Docs
+Features: 2 of 3 complete
+Status: 1 feature remaining
+Next: Native Question UI
+Last activity: 2026-01-20 - Added Native Question UI feature
 
-Progress: [##########] 100%
+Progress: [######░░░░] 67%
 
 ## Quick Tasks Completed
 
@@ -29,6 +30,7 @@ Progress: [##########] 100%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- 2026-01-20: Added Native Question UI feature - use AskUserQuestion throughout GSD commands
 - Quick task directory structure: `.planning/quick/NNN-slug/`
 - Quick task validation: ROADMAP.md only, no feature status check
 - Orchestration inline in command file, no separate workflow
