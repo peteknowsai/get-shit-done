@@ -2,7 +2,7 @@
 
 # GET SHIT DONE
 
-**A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by TÂCHES.**
+**A light-weight and powerful meta-prompting system for Claude Code.**
 
 **Solves context rot — the quality degradation that happens as Claude fills its context window.**
 
@@ -27,15 +27,13 @@ npx get-shit-done-cc
 
 *"If you know clearly what you want, this WILL build it for you. No bs."*
 
-*"I've done SpecKit, OpenSpec and Taskmaster — this has produced the best results for me."*
-
 *"By far the most powerful addition to my Claude Code. Nothing over-engineered. Literally just gets shit done."*
 
 <br>
 
 **Trusted by engineers at Amazon, Google, Shopify, and Webflow.**
 
-[Why I Built This](#why-i-built-this) · [How It Works](#how-it-works) · [Commands](#commands) · [Why It Works](#why-it-works)
+[Why I Built This](#why-i-built-this) · [How It Works](#how-it-works) · [Commands](#commands)
 
 </div>
 
@@ -45,27 +43,13 @@ npx get-shit-done-cc
 
 I'm a solo developer. I don't write code — Claude Code does.
 
-Other spec-driven development tools exist; BMAD, Speckit... But they all seem to make things way more complicated than they need to be (sprint ceremonies, story points, stakeholder syncs, retrospectives, Jira workflows) or lack real big picture understanding of what you're building. I'm not a 50-person software company. I don't want to play enterprise theater. I'm just a creative person trying to build great things that work.
+Other spec-driven development tools exist; BMAD, Speckit... But they all make things way more complicated than they need to be. Sprint ceremonies, story points, stakeholder syncs, retrospectives, Jira workflows. I'm not a 50-person software company. I don't want to play enterprise theater. I'm just a creative person trying to build great things.
 
-So I built GSD. The complexity is in the system, not in your workflow. Behind the scenes: context engineering, XML prompt formatting, subagent orchestration, state management. What you see: a few commands that just work.
+So I built GSD. **5 commands.** That's it.
 
-The system gives Claude everything it needs to do the work *and* verify it. I trust the workflow. It just does a good job.
-
-That's what this is. No enterprise roleplay bullshit. Just an incredibly effective system for building cool stuff consistently using Claude Code.
+The system gives Claude everything it needs to do the work. I trust the workflow. It just does a good job.
 
 — **TÂCHES**
-
----
-
-Vibecoding has a bad reputation. You describe what you want, AI generates code, and you get inconsistent garbage that falls apart at scale.
-
-GSD fixes that. It's the context engineering layer that makes Claude Code reliable. Describe your idea, let the system extract everything it needs to know, and let Claude Code get to work.
-
----
-
-## Who This Is For
-
-People who want to describe what they want and have it built correctly — without pretending they're running a 50-person engineering org.
 
 ---
 
@@ -75,425 +59,169 @@ People who want to describe what they want and have it built correctly — witho
 npx get-shit-done-cc
 ```
 
-That's it. Verify with `/gsd:help` inside your Claude Code interface.
-
-### Staying Updated
-
-GSD evolves fast. Check for updates periodically:
-
-```
-/gsd:whats-new
-```
-
-Update with:
-
-```bash
-npx get-shit-done-cc@latest
-```
-
-<details>
-<summary><strong>Non-interactive Install (Docker, CI, Scripts)</strong></summary>
-
-```bash
-npx get-shit-done-cc --global   # Install to ~/.claude/
-npx get-shit-done-cc --local    # Install to ./.claude/
-```
-
-Use `--global` (`-g`) or `--local` (`-l`) to skip the interactive prompt.
-
-</details>
-
-<details>
-<summary><strong>Development Installation</strong></summary>
-
-Clone the repository and run the installer locally:
-
-```bash
-git clone https://github.com/glittercowboy/get-shit-done.git
-cd get-shit-done
-node bin/install.js --local
-```
-
-Installs to `./.claude/` for testing modifications before contributing.
-
-</details>
+Verify with `/gsd:help` inside Claude Code.
 
 ### Recommended: Skip Permissions Mode
-
-GSD is designed for frictionless automation. Run Claude Code with:
 
 ```bash
 claude --dangerously-skip-permissions
 ```
 
 > [!TIP]
-> This is how GSD is intended to be used — stopping to approve `date` and `git commit` 50 times defeats the purpose.
-
-<details>
-<summary><strong>Alternative: Granular Permissions</strong></summary>
-
-If you prefer not to use that flag, add this to your project's `.claude/settings.json`:
-
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(date:*)",
-      "Bash(echo:*)",
-      "Bash(cat:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)",
-      "Bash(wc:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(sort:*)",
-      "Bash(grep:*)",
-      "Bash(tr:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git status:*)",
-      "Bash(git log:*)",
-      "Bash(git diff:*)",
-      "Bash(git tag:*)"
-    ]
-  }
-}
-```
-
-</details>
+> This is how GSD is intended to be used — stopping to approve `git commit` 50 times defeats the purpose.
 
 ---
 
 ## How It Works
 
-> **Already have code?** Run `/gsd:map-codebase` first. It spawns parallel agents to analyze your stack, architecture, conventions, and concerns. Then `/gsd:new-project` knows your codebase — questions focus on what you're adding, and planning automatically loads your patterns.
-
-### 1. Initialize Project
+### 1. Initialize
 
 ```
-/gsd:new-project
+/gsd:init
 ```
 
-One command, one flow. The system:
+One command takes you from idea to ready-to-build:
 
-1. **Questions** — Asks until it understands your idea completely (goals, constraints, tech preferences, edge cases)
-2. **Research** — Spawns parallel agents to investigate the domain (optional but recommended)
-3. **Requirements** — Extracts what's v1, v2, and out of scope
-4. **Roadmap** — Creates phases mapped to requirements
+1. **Q&A** — Asks until it understands what you're building
+2. **Research** — Investigates the domain (optional)
+3. **Roadmap** — Creates features grouped and ordered
 
-You approve the roadmap. Now you're ready to build.
-
-**Creates:** `PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md`, `.planning/research/`
+**Creates:** `ROADMAP.md`, `STATE.md`
 
 ---
 
-### 2. Discuss Phase
+### 2. Build
 
 ```
-/gsd:discuss-phase 1
+/gsd:next
 ```
 
-**This is where you shape the implementation.**
+The main loop. Repeat until done:
 
-Your roadmap has a sentence or two per phase. That's not enough context to build something the way *you* imagine it. This step captures your preferences before anything gets researched or planned.
+1. **Shows progress** — Where you are
+2. **Presents options** — Pick a feature (or group of features)
+3. **Discussion** — Captures your vision
+4. **Research** — Investigates implementation (optional)
+5. **Plan** — Creates implementation plan (native plan mode)
+6. **Execute** — Builds it with atomic commits
 
-The system analyzes the phase and identifies gray areas based on what's being built:
-
-- **Visual features** → Layout, density, interactions, empty states
-- **APIs/CLIs** → Response format, flags, error handling, verbosity
-- **Content systems** → Structure, tone, depth, flow
-- **Organization tasks** → Grouping criteria, naming, duplicates, exceptions
-
-For each area you select, it asks until you're satisfied. The output — `CONTEXT.md` — feeds directly into the next two steps:
-
-1. **Researcher reads it** — Knows what patterns to investigate ("user wants card layout" → research card component libraries)
-2. **Planner reads it** — Knows what decisions are locked ("infinite scroll decided" → plan includes scroll handling)
-
-The deeper you go here, the more the system builds what you actually want. Skip it and you get reasonable defaults. Use it and you get *your* vision.
-
-**Creates:** `{phase}-CONTEXT.md`
+**Creates:** `CONTEXT.md`, `RESEARCH.md`, `PLAN.md`
 
 ---
 
-### 3. Plan Phase
+### 3. Repeat
 
 ```
-/gsd:plan-phase 1
+/gsd:next
+/gsd:next
+/gsd:next
+...done
 ```
 
-The system:
-
-1. **Researches** — Investigates how to implement this phase, guided by your CONTEXT.md decisions
-2. **Plans** — Creates 2-3 atomic task plans with XML structure
-3. **Verifies** — Checks plans against requirements, loops until they pass
-
-Each plan is small enough to execute in a fresh context window. No degradation, no "I'll be more concise now."
-
-**Creates:** `{phase}-RESEARCH.md`, `{phase}-{N}-PLAN.md`
+Each feature gets your input, proper research, clean execution. Context stays fresh. Quality stays high.
 
 ---
 
-### 4. Execute Phase
+### Realign
 
 ```
-/gsd:execute-phase 1
+/gsd:roadmap
 ```
 
-The system:
-
-1. **Runs plans in waves** — Parallel where possible, sequential when dependent
-2. **Fresh context per plan** — 200k tokens purely for implementation, zero accumulated garbage
-3. **Commits per task** — Every task gets its own atomic commit
-4. **Verifies against goals** — Checks the codebase delivers what the phase promised
-
-Walk away, come back to completed work with clean git history.
-
-**Creates:** `{phase}-{N}-SUMMARY.md`, `{phase}-VERIFICATION.md`
+When priorities change:
+- Rethink what matters
+- Add/remove features
+- Reorder the roadmap
 
 ---
 
-### 5. Verify Work
-
-```
-/gsd:verify-work 1
-```
-
-**This is where you confirm it actually works.**
-
-Automated verification checks that code exists and tests pass. But does the feature *work* the way you expected? This is your chance to use it.
-
-The system:
-
-1. **Extracts testable deliverables** — What you should be able to do now
-2. **Walks you through one at a time** — "Can you log in with email?" Yes/no, or describe what's wrong
-3. **Diagnoses failures automatically** — Spawns debug agents to find root causes
-4. **Creates verified fix plans** — Ready for immediate re-execution
-
-If everything passes, you move on. If something's broken, you don't manually debug — you just run `/gsd:execute-phase` again with the fix plans it created.
-
-**Creates:** `{phase}-UAT.md`, fix plans if issues found
-
----
-
-### 6. Repeat → Complete → Next Milestone
-
-```
-/gsd:discuss-phase 2
-/gsd:plan-phase 2
-/gsd:execute-phase 2
-/gsd:verify-work 2
-...
-/gsd:complete-milestone
-/gsd:new-milestone
-```
-
-Loop **discuss → plan → execute → verify** until milestone complete.
-
-Each phase gets your input (discuss), proper research (plan), clean execution (execute), and human verification (verify). Context stays fresh. Quality stays high.
-
-When all phases are done, `/gsd:complete-milestone` archives the milestone and tags the release.
-
-Then `/gsd:new-milestone` starts the next version — same flow as `new-project` but for your existing codebase. You describe what you want to build next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → build → ship.
-
----
-
-### Quick Mode
+### Quick Tasks
 
 ```
 /gsd:quick
 ```
 
-**For ad-hoc tasks that don't need full planning.**
+For ad-hoc stuff outside the roadmap:
+- Bug fixes
+- Config changes
+- One-off adjustments
 
-Quick mode gives you GSD guarantees (atomic commits, state tracking) with a faster path:
-
-- **Same agents** — Planner + executor, same quality
-- **Skips optional steps** — No research, no plan checker, no verifier
-- **Separate tracking** — Lives in `.planning/quick/`, not phases
-
-Use for: bug fixes, small features, config changes, one-off tasks.
-
-```
-/gsd:quick
-> What do you want to do? "Add dark mode toggle to settings"
-```
-
-**Creates:** `.planning/quick/001-add-dark-mode-toggle/PLAN.md`, `SUMMARY.md`
+Same guarantees (atomic commits, tracking) but faster.
 
 ---
 
-## Why It Works
+### Debug
 
-### Context Engineering
-
-Claude Code is incredibly powerful *if* you give it the context it needs. Most people don't.
-
-GSD handles it for you:
-
-| File | What it does |
-|------|--------------|
-| `PROJECT.md` | Project vision, always loaded |
-| `research/` | Ecosystem knowledge (stack, features, architecture, pitfalls) |
-| `REQUIREMENTS.md` | Scoped v1/v2 requirements with phase traceability |
-| `ROADMAP.md` | Where you're going, what's done |
-| `STATE.md` | Decisions, blockers, position — memory across sessions |
-| `PLAN.md` | Atomic task with XML structure, verification steps |
-| `SUMMARY.md` | What happened, what changed, committed to history |
-| `todos/` | Captured ideas and tasks for later work |
-
-Size limits based on where Claude's quality degrades. Stay under, get consistent excellence.
-
-### XML Prompt Formatting
-
-Every plan is structured XML optimized for Claude:
-
-```xml
-<task type="auto">
-  <name>Create login endpoint</name>
-  <files>src/app/api/auth/login/route.ts</files>
-  <action>
-    Use jose for JWT (not jsonwebtoken - CommonJS issues).
-    Validate credentials against users table.
-    Return httpOnly cookie on success.
-  </action>
-  <verify>curl -X POST localhost:3000/api/auth/login returns 200 + Set-Cookie</verify>
-  <done>Valid credentials return cookie, invalid return 401</done>
-</task>
+```
+/gsd:debug "something is broken"
 ```
 
-Precise instructions. No guessing. Verification built in.
-
-### Multi-Agent Orchestration
-
-Every stage uses the same pattern: a thin orchestrator spawns specialized agents, collects results, and routes to the next step.
-
-| Stage | Orchestrator does | Agents do |
-|-------|------------------|-----------|
-| Research | Coordinates, presents findings | 4 parallel researchers investigate stack, features, architecture, pitfalls |
-| Planning | Validates, manages iteration | Planner creates plans, checker verifies, loop until pass |
-| Execution | Groups into waves, tracks progress | Executors implement in parallel, each with fresh 200k context |
-| Verification | Presents results, routes next | Verifier checks codebase against goals, debuggers diagnose failures |
-
-The orchestrator never does heavy lifting. It spawns agents, waits, integrates results.
-
-**The result:** You can run an entire phase — deep research, multiple plans created and verified, thousands of lines of code written across parallel executors, automated verification against goals — and your main context window stays at 30-40%. The work happens in fresh subagent contexts. Your session stays fast and responsive.
-
-### Atomic Git Commits
-
-Each task gets its own commit immediately after completion:
-
-```bash
-abc123f docs(08-02): complete user registration plan
-def456g feat(08-02): add email confirmation flow
-hij789k feat(08-02): implement password hashing
-lmn012o feat(08-02): create registration endpoint
-```
-
-> [!NOTE]
-> **Benefits:** Git bisect finds exact failing task. Each task independently revertable. Clear history for Claude in future sessions. Better observability in AI-automated workflow.
-
-Every commit is surgical, traceable, and meaningful.
-
-### Modular by Design
-
-- Add phases to current milestone
-- Insert urgent work between phases
-- Complete milestones and start fresh
-- Adjust plans without rebuilding everything
-
-You're never locked in. The system adapts.
+Systematic debugging with persistent state. Survives `/clear` so you can pick up where you left off.
 
 ---
 
 ## Commands
 
-### Core Workflow
+| Command | Purpose |
+|---------|---------|
+| `/gsd:init` | Initialize project |
+| `/gsd:next` | Select → plan → build |
+| `/gsd:roadmap` | Realign priorities |
+| `/gsd:quick` | Ad-hoc tasks |
+| `/gsd:debug` | Systematic debugging |
 
-| Command | What it does |
-|---------|--------------|
-| `/gsd:new-project` | Full initialization: questions → research → requirements → roadmap |
-| `/gsd:discuss-phase [N]` | Capture implementation decisions before planning |
-| `/gsd:plan-phase [N]` | Research + plan + verify for a phase |
-| `/gsd:execute-phase <N>` | Execute all plans in parallel waves, verify when complete |
-| `/gsd:verify-work [N]` | Manual user acceptance testing ¹ |
-| `/gsd:complete-milestone` | Archive milestone, tag release |
-| `/gsd:new-milestone [name]` | Start next version: questions → research → requirements → roadmap |
+**That's it. 5 commands.**
 
-### Navigation
+---
 
-| Command | What it does |
-|---------|--------------|
-| `/gsd:progress` | Where am I? What's next? |
-| `/gsd:help` | Show all commands and usage guide |
+## Files
 
-### Brownfield
+```
+.planning/
+├── ROADMAP.md          ← features (grouped, ordered)
+├── STATE.md            ← project memory
+├── features/           ← per-feature artifacts
+│   └── {feature}/
+│       ├── CONTEXT.md  ← your vision
+│       ├── RESEARCH.md ← implementation research
+│       └── PLAN.md     ← the plan
+├── quick/              ← quick tasks
+└── debug/              ← debug sessions
+```
 
-| Command | What it does |
-|---------|--------------|
-| `/gsd:map-codebase` | Analyze existing codebase before new-project |
+---
 
-### Phase Management
+## Why It Works
 
-| Command | What it does |
-|---------|--------------|
-| `/gsd:add-phase` | Append phase to roadmap |
-| `/gsd:insert-phase [N]` | Insert urgent work between phases |
-| `/gsd:remove-phase [N]` | Remove future phase, renumber |
+### Native Integration
 
-### Session
+GSD uses Claude Code's native features:
+- **Plan mode** for implementation planning
+- **TodoWrite** for task tracking
+- **AskUserQuestion** for Q&A
 
-| Command | What it does |
-|---------|--------------|
-| `/gsd:pause-work` | Create handoff when stopping mid-phase |
-| `/gsd:resume-work` | Restore from last session |
+No custom agents reinventing the wheel.
 
-### Utilities
+### Context Engineering
 
-| Command | What it does |
-|---------|--------------|
-| `/gsd:add-todo [desc]` | Capture idea for later |
-| `/gsd:check-todos` | List pending todos |
-| `/gsd:debug [desc]` | Systematic debugging with persistent state |
-| `/gsd:quick` | Execute ad-hoc task with GSD guarantees |
+State persists in files. After `/clear`, Claude reads ROADMAP.md and STATE.md to know exactly where you are.
 
-<sup>¹ Contributed by reddit user OracleGreyBeard</sup>
+### Atomic Commits
+
+Every task gets its own commit. Git bisect works. History is clean.
 
 ---
 
 ## Troubleshooting
 
-**Commands not found after install?**
-- Restart Claude Code to reload slash commands
-- Verify files exist in `~/.claude/commands/gsd/` (global) or `./.claude/commands/gsd/` (local)
+**Commands not found?**
+- Restart Claude Code
+- Re-run `npx get-shit-done-cc`
 
-**Commands not working as expected?**
-- Run `/gsd:help` to verify installation
-- Re-run `npx get-shit-done-cc` to reinstall
-
-**Updating to the latest version?**
+**Updating?**
 ```bash
 npx get-shit-done-cc@latest
 ```
-
-**Using Docker or containerized environments?**
-
-If file reads fail with tilde paths (`~/.claude/...`), set `CLAUDE_CONFIG_DIR` before installing:
-```bash
-CLAUDE_CONFIG_DIR=/home/youruser/.claude npx get-shit-done-cc --global
-```
-This ensures absolute paths are used instead of `~` which may not expand correctly in containers.
-
----
-
-## Star History
-
-<a href="https://star-history.com/#glittercowboy/get-shit-done&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=glittercowboy/get-shit-done&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=glittercowboy/get-shit-done&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=glittercowboy/get-shit-done&type=Date" />
- </picture>
-</a>
 
 ---
 
