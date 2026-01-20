@@ -67,16 +67,24 @@ Progress: [████████░░░░] 4/12 features complete
 
 ## 3. Open Discussion
 
-Ask freeform: **"What's on your mind about the roadmap?"**
+Use AskUserQuestion to understand what the user wants to do:
 
-Listen for:
-- Reprioritization ("I think we should do X before Y")
-- Scope changes ("Actually we don't need X")
-- New features ("I realized we need X")
-- Concerns ("I'm worried about X")
-- Questions ("Should we do X or Y?")
+```
+question: "What would you like to do with the roadmap?"
+options:
+  - "Add a feature" — I have something new to add
+  - "Remove/descope" — Something should come off
+  - "Reprioritize" — Change the order of features
+  - "Just discuss" — I want to talk through something
+```
 
-Use AskUserQuestion for specific decisions when helpful.
+Based on selection:
+- **Add a feature:** Ask what feature, gather details, add to ROADMAP.md
+- **Remove/descope:** Show current features, ask which to remove
+- **Reprioritize:** Show current order, discuss new priorities
+- **Just discuss:** Ask freeform "What's on your mind?" and listen for concerns
+
+Use additional AskUserQuestion calls for specific decisions as needed.
 
 ## 4. Make Changes
 

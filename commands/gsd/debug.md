@@ -49,18 +49,27 @@ active=$(ls .planning/debug/*.md 2>/dev/null | grep -v resolved)
 ```
 
 **If active sessions exist AND no $ARGUMENTS:**
+
+Display the header, then use AskUserQuestion with dynamic options based on active sessions:
+
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  GSD ► DEBUG
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Active debug sessions:
-
-1. login-not-working — Testing auth flow hypothesis
-2. slow-queries — Investigating N+1 patterns
-
-Pick a number to resume, or describe a new issue.
 ```
+
+```
+question: "Which debug session?"
+options:
+  - "[session-1-slug]" — [current status from file]
+  - "[session-2-slug]" — [current status from file]
+  - "New issue" — Start a fresh debug session
+```
+
+(Build options dynamically from active session files. Max 3 sessions shown + "New issue" option.)
+
+If a session is selected → read that debug file and resume investigation
+If "New issue" → proceed to gather symptoms
 
 **If $ARGUMENTS provided:** Start new session.
 

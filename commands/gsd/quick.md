@@ -40,12 +40,17 @@ Quick tasks that don't belong on the roadmap.
 
 Ask freeform: **"What do you want to do?"**
 
-If task sounds like a feature:
+If task sounds like a feature (substantial new functionality), use AskUserQuestion:
+
 ```
-This sounds like a roadmap feature. Want to add it to the roadmap instead?
-- Yes → /gsd:roadmap
-- No, just do it quick → continue
+question: "This sounds like a roadmap feature. Add to roadmap instead?"
+options:
+  - "Yes, add to roadmap" — Use /gsd:roadmap to plan properly
+  - "No, just do it quick" — It's small, handle it now
 ```
+
+If "Yes" → redirect to /gsd:roadmap
+If "No" → continue with quick task
 
 ## 2. Create Quick Directory
 
@@ -77,9 +82,19 @@ Steps:
 1. [step 1]
 2. [step 2]
 3. [step 3]
-
-Proceeding...
 ```
+
+Use AskUserQuestion to confirm before executing:
+
+```
+question: "Ready to execute these steps?"
+options:
+  - "Execute" — Let's do it
+  - "Adjust" — I want to change something
+```
+
+If "Adjust" → discuss changes, update steps, re-confirm
+If "Execute" → proceed
 
 ## 4. Execute with TodoWrite
 
