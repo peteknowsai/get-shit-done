@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2025-01-19)
 
 ## Current Position
 
-Features: 2 of 4 complete
-Status: 2 features remaining
-Next: Native Question UI
-Last activity: 2026-01-20 - Added Agent-Based Execution feature
+Features: 3 of 6 complete
+Status: 3 features remaining (Parallel Workflow)
+Next: gsd:discuss Command
+Last activity: 2026-01-20 - Roadmap restructure: split Agent-Based Execution into 3 commands
 
 Progress: [#####░░░░░] 50%
 
@@ -30,6 +30,9 @@ Progress: [#####░░░░░] 50%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- 2026-01-20: Split Agent-Based Execution into Parallel Workflow: gsd:discuss (scope.md output), gsd:run (background execution), gsd:review (interactive walkthrough)
+- 2026-01-20: Feature file handoff pattern: `.planning/features/{slug}/scope.md` → `plan.md` → `summary.md`
+- 2026-01-20: Completed Native Question UI - added AskUserQuestion to roadmap, quick, debug; added close-out step to /gsd:next
 - 2026-01-20: Added Agent-Based Execution feature - use sub-agents for research/planning/execution to reduce context rot
 - 2026-01-20: Added Native Question UI feature - use AskUserQuestion throughout GSD commands
 - Quick task directory structure: `.planning/quick/NNN-slug/`
