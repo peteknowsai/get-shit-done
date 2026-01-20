@@ -19,6 +19,7 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 - [ ] **gsd:thread Command** — Create and scope a feature thread
 - [ ] **gsd:run Command** — Execute thread (background-capable)
 - [ ] **gsd:review Command** — Review completed thread
+- [ ] **Deprecate gsd:next** — Remove old monolithic command, thread system replaces it
 
 ## Feature Details
 
@@ -85,3 +86,4 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 | gsd:thread Command | Pending | — |
 | gsd:run Command | Pending | — |
 | gsd:review Command | Pending | — |
+| Deprecate gsd:next | Pending | — |

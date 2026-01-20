@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2025-01-19)
 
 ## Current Position
 
-Features: 3 of 6 complete
-Status: 3 features remaining (Thread System)
+Features: 3 of 7 complete
+Status: 4 features remaining (Thread System)
 Next: gsd:thread Command
 Last activity: 2026-01-20 - Adopted thread terminology from Andy Devdan's thread-based engineering
 
-Progress: [#####░░░░░] 50%
+Progress: [####░░░░░░] 43%
 
 ## Quick Tasks Completed
 
@@ -30,6 +30,7 @@ Progress: [#####░░░░░] 50%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- 2026-01-20: Deprecate /gsd:next - thread system (thread/run/review) fully replaces it
 - 2026-01-20: Threads can group multiple roadmap features (roadmap = atomic items, threads = work batches)
 - 2026-01-20: Adopted "thread" terminology from Andy Devdan's thread-based engineering framework
 - 2026-01-20: Thread System: gsd:thread (scope), gsd:run (background execution), gsd:review (walkthrough)
