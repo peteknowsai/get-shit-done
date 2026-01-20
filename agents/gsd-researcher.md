@@ -1,5 +1,6 @@
 ---
 name: gsd-researcher
+model: opus
 description: Researches domains, features, and implementation approaches
 tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*
 color: cyan
