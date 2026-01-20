@@ -15,10 +15,10 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 ### UX
 - [x] **Native Question UI** — Use AskUserQuestion tool throughout all GSD commands
 
-### Parallel Workflow
-- [ ] **gsd:discuss Command** — Discussion phase that outputs scope.md for features
-- [ ] **gsd:run Command** — Background-capable research, planning, and execution
-- [ ] **gsd:review Command** — Interactive walkthrough of completed changes
+### Thread System
+- [ ] **gsd:thread Command** — Create and scope a feature thread
+- [ ] **gsd:run Command** — Execute thread (background-capable)
+- [ ] **gsd:review Command** — Review completed thread
 
 ## Feature Details
 
@@ -41,36 +41,38 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 - Provides selectable options in CLI, better UX
 - Users can still type custom responses via "Other" option
 
-### gsd:discuss Command
-**Goal:** Structured discussion phase that captures scope and requirements before execution
+### gsd:thread Command
+**Goal:** Create and scope a feature thread with clear requirements
 **Size:** medium
 **Notes:**
-- `gsd:discuss` with no args picks next feature from roadmap
-- `gsd:discuss [feature]` discusses specific feature
+- `gsd:thread` with no args picks next feature from roadmap
+- `gsd:thread [name]` creates/discusses specific thread
 - Interactive clarification of scope, requirements, decisions
-- Outputs `.planning/features/{slug}/scope.md`
+- Outputs `.planning/threads/{slug}/scope.md`
 - All questions resolved before handoff to run phase
+- Thread = unit of work (scope → run → review)
 
 ### gsd:run Command
-**Goal:** Background-capable execution of research, planning, and implementation
+**Goal:** Execute a thread with background-capable agents
 **Size:** large
 **Notes:**
-- Reads scope.md from discuss phase
-- Spawns background agent for heavy lifting
+- Reads scope.md from thread directory
+- Spawns background agent for heavy lifting (P-thread pattern)
 - Research codebase → write plan.md → execute → commit
-- User can run `gsd:discuss` on another feature while this runs
+- User can run `gsd:thread` on another feature while this runs
 - Writes summary.md when complete
 - Uses Task tool with `run_in_background: true`
+- Enables parallel threads (Boris Cherny's 5+ agents pattern)
 
 ### gsd:review Command
-**Goal:** Interactive walkthrough of completed feature changes
+**Goal:** Review a completed thread with interactive walkthrough
 **Size:** medium
 **Notes:**
-- `gsd:review` reviews last completed feature
-- `gsd:review [feature]` reviews specific feature
+- `gsd:review` reviews last completed thread
+- `gsd:review [name]` reviews specific thread
 - Steps through changed files one by one
 - Explains what changed and why
-- Collects feedback: approve, request changes, or discuss
+- Collects feedback: approve, request changes, or iterate
 
 ## Progress
 
@@ -79,6 +81,6 @@ Quick mode adds a fast-path command (`/gsd:quick`) that executes small tasks wit
 | Quick Command | Complete | 2026-01-19 |
 | Quick Mode Docs | Complete | 2026-01-19 |
 | Native Question UI | Complete | 2026-01-20 |
-| gsd:discuss Command | Pending | — |
+| gsd:thread Command | Pending | — |
 | gsd:run Command | Pending | — |
 | gsd:review Command | Pending | — |

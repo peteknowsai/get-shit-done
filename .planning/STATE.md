@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2025-01-19)
 ## Current Position
 
 Features: 3 of 6 complete
-Status: 3 features remaining (Parallel Workflow)
-Next: gsd:discuss Command
-Last activity: 2026-01-20 - Roadmap restructure: split Agent-Based Execution into 3 commands
+Status: 3 features remaining (Thread System)
+Next: gsd:thread Command
+Last activity: 2026-01-20 - Adopted thread terminology from Andy Devdan's thread-based engineering
 
 Progress: [#####░░░░░] 50%
 
@@ -30,8 +30,10 @@ Progress: [#####░░░░░] 50%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- 2026-01-20: Split Agent-Based Execution into Parallel Workflow: gsd:discuss (scope.md output), gsd:run (background execution), gsd:review (interactive walkthrough)
-- 2026-01-20: Feature file handoff pattern: `.planning/features/{slug}/scope.md` → `plan.md` → `summary.md`
+- 2026-01-20: Adopted "thread" terminology from Andy Devdan's thread-based engineering framework
+- 2026-01-20: Thread System: gsd:thread (scope), gsd:run (background execution), gsd:review (walkthrough)
+- 2026-01-20: Thread directory pattern: `.planning/threads/{slug}/scope.md` → `plan.md` → `summary.md`
+- 2026-01-20: Thread = unit of work (prompt/scope → agent execution → review)
 - 2026-01-20: Completed Native Question UI - added AskUserQuestion to roadmap, quick, debug; added close-out step to /gsd:next
 - 2026-01-20: Added Agent-Based Execution feature - use sub-agents for research/planning/execution to reduce context rot
 - 2026-01-20: Added Native Question UI feature - use AskUserQuestion throughout GSD commands
