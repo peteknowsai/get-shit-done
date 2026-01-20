@@ -22,8 +22,9 @@ Interactive review of a completed thread's changes.
 5. Optional: Walk through changed files
 6. Collect feedback
 7. If approved: Mark features complete in ROADMAP.md
+8. If on feature branch: Offer to merge to main
 
-**Goal:** User understands and approves the work.
+**Goal:** User understands and approves the work, then merges.
 </objective>
 
 <context>
@@ -281,13 +282,62 @@ options:
    Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
    ```
 
-4. Show completion:
+4. Check for feature branch and offer merge:
+
+   ```bash
+   CURRENT_BRANCH=$(git branch --show-current)
+   MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
+   ```
+
+   **If on feature branch (not main/master/dev):**
+
+   Use AskUserQuestion:
+   ```
+   question: "Merge {branch} to {main}?"
+   header: "Merge"
+   multiSelect: false
+   options:
+     - label: "Merge and push (Recommended)"
+       description: "Merge to {main}, push both branches"
+     - label: "Merge only"
+       description: "Merge to {main}, don't push"
+     - label: "Skip merge"
+       description: "Stay on feature branch"
+   ```
+
+   **If "Merge and push" or "Merge only":**
+
+   ```bash
+   # Merge to main
+   git checkout {main}
+   git merge {feature_branch} --no-ff -m "Merge {feature_branch}: {thread_name}
+
+   Features:
+   $(list features)
+
+   Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+   ```
+
+   **If "Merge and push":**
+
+   ```bash
+   git push origin {main}
+   git push origin {feature_branch}
+   ```
+
+   **If merge conflicts:**
+   - Show conflict files
+   - Ask user how to proceed (resolve or abort)
+
+5. Show completion:
    ```
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     GSD ► REVIEW: {slug} — APPROVED ✓
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
    Thread approved! Features marked complete in roadmap.
+   {If merged: "Merged {feature_branch} → {main}"}
+   {If pushed: "Pushed to origin"}
 
    Progress: [████████░░░░] {n}/{total} features
 
@@ -362,4 +412,7 @@ Don't block approval for minor issues that can be fixed during review.
 - [ ] If approved: ROADMAP.md updated
 - [ ] If approved: STATE.md updated
 - [ ] Changes committed
+- [ ] If on feature branch: Merge offered
+- [ ] If merge selected: Branch merged to main
+- [ ] If push selected: Changes pushed to origin
 </success_criteria>
